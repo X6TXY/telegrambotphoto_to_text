@@ -5,7 +5,7 @@ import pytesseract
 import speech_recognition as sr
 from PIL import Image
 
-bot = telebot.TeleBot('6152554406:AAEfZz_oBYpCjTYi0ohkUNZ15q1N2vup_gM')
+bot = telebot.TeleBot('your token')
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -27,19 +27,5 @@ def image_to_text(message):
     text = pytesseract.image_to_string(Image.open('image.jpg'))
     bot.reply_to(message, text)
 
-# @bot.message_handler(content_types=['voice'])
-# def voice_to_text(message):
-#     file_id = message.voice.file_id
-#     file_url = f'https://api.telegram.org/bot{bot.token}/getfile?file_id={file_id}'
-#     file_path = requests.get(file_url).json()['result']['file_path']
-#     voice_url = f'https://api.telegram.org/file/bot{bot.token}/{file_path}'
-#     response = requests.get(voice_url, verify=False)
-#     with open('voice.ogg', 'wb') as f:
-#         f.write(response.content)
-#     r = sr.Recognizer()
-#     with sr.AudioFile('voice.ogg') as source:
-#         audio_data = r.record(source)
-#         text = r.recognize_google(audio_data, language='en-US')
-#     bot.reply_to(message, text)
 
 bot.polling()
